@@ -11,7 +11,7 @@ from typing import Dict, List
 from copy import copy
 
 
-JINA_API_KEY = "YOUR_API_KEY"
+JINA_API_KEY = "jina_b3ad05e8ee074d9a9dea1d980bffb3291fKd9h0gF8a08JowS6ojEyXwXorB"
 
 def read_pages(docs: List[Dict[str, str]], api='jina') ->List[Dict[str, str]]:
     results = []
@@ -61,7 +61,7 @@ def read_page_jina(url: str) -> str:
         content = content[content.index(prefix)+len(prefix):]
     except:
         pass
-    content = re.sub('\[(.+?)\]\(.+?\)', '[\\1]', content)
+    content = re.sub(r'\[(.+?)\]\(.+?\)', r'[\1]', content)
 
     return content
 

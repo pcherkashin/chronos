@@ -42,7 +42,7 @@ def save_json(data, file_path):
         with open(file_path.replace('.json', '.json'), 'w') as file:
             json.dump(data, file, indent=2, ensure_ascii=False)
 
-def generate(input_text, model, num_dates=9999, search_engine='bing', n_max_query=6, n_max_doc=30, freshness=''):
+def generate(input_text, model, num_dates=9999, search_engine='search1api', n_max_query=6, n_max_doc=30, freshness=''):
     for _ in range(2):
         try:
             news_timeline = []

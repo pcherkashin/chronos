@@ -44,16 +44,28 @@ def ask_news_question(model: str, news: str, docs: list = [], questions: list = 
     raw_prompt = _build_raw_prompt(news, docs, questions, input_length=input_length, examples=examples)
     try:
         responses = query_model(model, raw_prompt)
+        if not responses:
+            print('Failed: Empty response from model')
+            return []
+            
         if '\n\n' in responses:
             responses = '\n'.join(responses.split('\n\n')[1:-1])
             responses = str([d.lstrip('1.' ).lstrip('2.' ).lstrip('3.' ).lstrip('4.' ).lstrip('5.' ) for d in responses.split('\n')])
-        return eval(responses)
-    except Exception as e:
+            
         try:
-            return eval(responses.replace("\'s", ""))
-        except Exception as e:
-            print(f'Failed when generating questions: {str(e)}') 
-            return []
+            return eval(responses)
+        except:
+            # Try cleaning up the response
+            cleaned_responses = responses.replace("\'s", "")
+            try:
+                return eval(cleaned_responses)
+            except Exception as e:
+                print(f'Failed to parse response: {str(e)}')
+                return []
+                
+    except Exception as e:
+        print(f'Failed when generating questions: {str(e)}')
+        return []
 
 
 def _build_raw_prompt(news: str, docs: list = [], questions: list = [], input_length: int = 30000, examples: list = []) -> str:
