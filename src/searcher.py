@@ -4,8 +4,12 @@ import requests
 import concurrent.futures
 import logging
 from typing import Dict, List
+from dotenv import load_dotenv
 
+# Load environment variables
+load_dotenv()
 
+SEARCH1API_KEY = os.getenv('SEARCH1API_KEY')
 SEARCH1API_KEY =  "24D015CE-0B18-45CE-97A1-925EA15BE2DF"
 
 def search(query_list: List[str], n_max_doc: int = 20, search_engine: str = 'search1api', freshness: str = '') -> List[Dict[str, str]]:

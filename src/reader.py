@@ -9,9 +9,12 @@ import concurrent.futures
 import logging
 from typing import Dict, List
 from copy import copy
+from dotenv import load_dotenv
 
+# Load environment variables
+load_dotenv()
 
-JINA_API_KEY = "jina_b3ad05e8ee074d9a9dea1d980bffb3291fKd9h0gF8a08JowS6ojEyXwXorB"
+JINA_API_KEY = os.getenv('JINA_API_KEY')
 
 def read_pages(docs: List[Dict[str, str]], api='jina') ->List[Dict[str, str]]:
     results = []
